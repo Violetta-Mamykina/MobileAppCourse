@@ -26,7 +26,7 @@ class ExampleInstrumentedTest {
 
     @Test
     fun broadcastBeforeTest() {
-        Espresso.onView(ViewMatchers.withId(R.id.text))
+        Espresso.onView(ViewMatchers.withId(R.id.path_text))
             .check(ViewAssertions.matches(ViewMatchers.withText("Hello World!")))
     }
 }
