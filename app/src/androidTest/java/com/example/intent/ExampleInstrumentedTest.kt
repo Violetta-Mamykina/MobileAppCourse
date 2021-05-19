@@ -35,10 +35,26 @@ class NavigationTest {
         Espresso.pressBack()
         Espresso.onView(ViewMatchers.withId(R.id.first_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Navigation Drawer
+//        Espresso.onView(ViewMatchers.withId(R.id.first_screen)).perform(DrawerActions.open())
+//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_first))
+//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Bottom Navigation
+//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Options Menu
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
         Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.about_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+
         Espresso.pressBack()
         Espresso.onView(ViewMatchers.withId(R.id.first_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
@@ -64,10 +80,25 @@ class NavigationTest {
         Espresso.pressBack()
         Espresso.onView(ViewMatchers.withId(R.id.second_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Navigation Drawer
+//        Espresso.onView(ViewMatchers.withId(R.id.second_screen)).perform(DrawerActions.open())
+//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_second))
+//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Bottom Navigation
+//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Options Menu
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
         Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.about_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
         Espresso.pressBack()
         Espresso.onView(ViewMatchers.withId(R.id.second_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
@@ -95,10 +126,25 @@ class NavigationTest {
         Espresso.onView(ViewMatchers.withId(R.id.second_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.toThird)).perform(ViewActions.click())
+
+        //for Navigation Drawer
+//        Espresso.onView(ViewMatchers.withId(R.id.third_screen)).perform(DrawerActions.open())
+//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_third))
+//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Bottom Navigation
+//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
+//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
+        //for Options Menu
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
         Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.about_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+
         Espresso.pressBack()
         Espresso.onView(ViewMatchers.withId(R.id.third_screen))
             .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
@@ -116,5 +162,6 @@ class NavigationTest {
         assertEquals("DESTROYED", state.toString())
     }
 }
+
 
 
