@@ -23,143 +23,122 @@ import org.junit.Rule
  */
 @RunWith(AndroidJUnit4::class)
 class NavigationTest {
+    private val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+
+    private fun currentScreen(id: Int) {
+        Espresso.onView(ViewMatchers.withId(id))
+            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+    }
+
+    private fun toScreen(idButton: Int, idScreen: Int) {
+        Espresso.onView(ViewMatchers.withId(idButton)).perform(ViewActions.click())
+        currentScreen(idScreen)
+    }
+/*
+    private fun toAboutNavigationDrawer(idScreen: Int, idNav: Int) {
+        Espresso.onView(ViewMatchers.withId(idScreen)).perform(DrawerActions.open())
+        Espresso.onView(ViewMatchers.withId(idNav))
+            .perform(NavigationViewActions.navigateTo(R.id.to_about))
+        currentScreen(R.id.about_screen)
+    }
+
+    private fun toAboutBottomNavigation() {
+        toScreen(R.id.bottom_navigation, R.id.about_screen)
+    }
+ */
+
+    private fun toAboutOptionsMenu() {
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
+        Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
+        currentScreen(R.id.about_screen)
+    }
+
+    private fun toEnd() {
+        Espresso.pressBackUnconditionally()
+        val state = rule.scenario.state
+        assertEquals("DESTROYED", state.toString())
+    }
+
     @get:Rule
     val rule = activityScenarioRule<MainActivity>()
 
     @Test
     fun forFirstScreen() {
-        val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        Espresso.onView(ViewMatchers.withId(R.id.toSecond)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        toScreen(R.id.to_second, R.id.second_screen)
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.first_screen)
 
         //for Navigation Drawer
-//        Espresso.onView(ViewMatchers.withId(R.id.first_screen)).perform(DrawerActions.open())
-//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_first))
-//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutNavigationDrawer(R.id.first_screen, R.id.nav_view_first)
 
         //for Bottom Navigation
-//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutBottomNavigation()
 
         //for Options Menu
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
-        Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-
+        toAboutOptionsMenu()
 
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.first_screen)
         uiDevice.setOrientationLeft()
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.pressBackUnconditionally()
-        val state = rule.scenario.state
-        assertEquals("DESTROYED", state.toString())
+        currentScreen(R.id.first_screen)
+        toEnd()
     }
 
     @Test
     fun forSecondScreen() {
-        val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        Espresso.onView(ViewMatchers.withId(R.id.toSecond)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toFirst)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.toSecond)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toThird)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.third_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        toScreen(R.id.to_second, R.id.second_screen)
+        toScreen(R.id.to_first, R.id.first_screen)
+        toScreen(R.id.to_second, R.id.second_screen)
+        toScreen(R.id.to_third, R.id.third_screen)
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.second_screen)
 
         //for Navigation Drawer
-//        Espresso.onView(ViewMatchers.withId(R.id.second_screen)).perform(DrawerActions.open())
-//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_second))
-//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutNavigationDrawer(R.id.second_screen, R.id.nav_view_second)
 
         //for Bottom Navigation
-//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutBottomNavigation()
 
         //for Options Menu
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
-        Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        toAboutOptionsMenu()
 
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.second_screen)
         uiDevice.setOrientationLeft()
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.second_screen)
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.pressBackUnconditionally()
-        val state = rule.scenario.state
-        assertEquals("DESTROYED", state.toString())
+        currentScreen(R.id.first_screen)
+        toEnd()
     }
+
     @Test
     fun forThirdScreen() {
-        val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        Espresso.onView(ViewMatchers.withId(R.id.toSecond)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toThird)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toFirstOther)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.toSecond)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toThird)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.toSecondOther)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.toThird)).perform(ViewActions.click())
+        toScreen(R.id.to_second, R.id.second_screen)
+        toScreen(R.id.to_third, R.id.third_screen)
+        toScreen(R.id.to_first_t, R.id.first_screen)
+        toScreen(R.id.to_second, R.id.second_screen)
+        toScreen(R.id.to_third, R.id.third_screen)
+        toScreen(R.id.to_second_t, R.id.second_screen)
+        toScreen(R.id.to_third, R.id.third_screen)
 
         //for Navigation Drawer
-//        Espresso.onView(ViewMatchers.withId(R.id.third_screen)).perform(DrawerActions.open())
-//        Espresso.onView(ViewMatchers.withId(R.id.nav_view_third))
-//            .perform(NavigationViewActions.navigateTo(R.id.toAbout))
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutNavigationDrawer(R.id.third_screen, R.id.nav_view_third)
 
         //for Bottom Navigation
-//        Espresso.onView(ViewMatchers.withId(R.id.bottom_navigation)).perform(ViewActions.click())
-//        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-//            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+//        toAboutBottomNavigation()
 
         //for Options Menu
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
-        Espresso.onView(ViewMatchers.withText(R.string.to_about)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.about_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        toAboutOptionsMenu()
 
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.third_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.third_screen)
         uiDevice.setOrientationLeft()
-        Espresso.onView(ViewMatchers.withId(R.id.third_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.third_screen)
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.second_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        currentScreen(R.id.second_screen)
         Espresso.pressBack()
-        Espresso.onView(ViewMatchers.withId(R.id.first_screen))
-            .check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
-        Espresso.pressBackUnconditionally()
-        val state = rule.scenario.state
-        assertEquals("DESTROYED", state.toString())
+        currentScreen(R.id.first_screen)
+        toEnd()
     }
 }
 
