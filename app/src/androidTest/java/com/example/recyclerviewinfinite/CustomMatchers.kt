@@ -14,7 +14,7 @@ class CustomMatchers {
                 }
 
                 override fun matchesSafely(item: RecyclerView?): Boolean {
-                    return item!!.adapter!!.itemCount > count
+                    return item?.adapter?.itemCount!! > count
                 }
             }
         }
