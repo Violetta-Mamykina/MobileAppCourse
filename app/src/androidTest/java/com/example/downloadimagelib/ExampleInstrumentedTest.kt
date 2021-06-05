@@ -22,13 +22,11 @@ import org.junit.Rule
  */
 @RunWith(AndroidJUnit4::class)
 class ImageViewTest {
-    @get:Rule
-    val rule = activityScenarioRule<MainActivity>()
-
     @Test
-    fun checkImageView() {
-        SystemClock.sleep(5000)
-        Espresso.onView(ViewMatchers.withId(R.id.dow_image))
-            .check(ViewAssertions.matches(existDrawable()))
+    fun useAppContext() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        assertEquals("com.example.downloadimagelib", appContext.packageName)
     }
 }
+
