@@ -14,10 +14,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Glide.with(applicationContext)
-            .load("https://i.artfile.ru/4500x3514_903167_[www.ArtFile.ru].jpg")
+        Glide.with(applicationContext).load("https://i.artfile.ru/4500x3514_903167_[www.ArtFile.ru].jpg")
             .into(findViewById(R.id.dow_image))
-
     }
 }
 
